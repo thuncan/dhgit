@@ -1,0 +1,24 @@
+<div class="right"><h1>templates</h1></div>
+<div class="clr"></div>
+<hr />
+<br />
+
+<table>
+  <thead>
+    <tr style="text-align: left; font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; font-size: 1em;">
+      <th class="tem" width="200px">Name</th>
+      <th class="tem" width="300px">Created</th>
+      <th class="tem" width="200px"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @templates.each do |template| %>
+      <tr>
+        <td class="tem"><%= template.name %></td>
+        <td class="tem"><%= template.created_at %></td>
+        <td class="tem"><%= link_to 'Remove', template, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

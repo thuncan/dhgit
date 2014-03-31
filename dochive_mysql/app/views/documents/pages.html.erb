@@ -1,0 +1,102 @@
+<div class="right"><h1><%= @document.source_file_name %></h1></div>
+<br>
+<%= link_to 'return to documents', documents_path, :class=>'likeabutton' %>
+<div class="clr"></div>
+<hr />
+
+  <script type='text/javascript'>
+
+  $('.inputcb').click(function() {
+  var checked; 
+  if ($(this).is(':checked')) {
+    checked = true;
+  } else {
+    checked = false;
+  } 
+  $.ajax({
+      type: "POST",
+      beforeSend: function(xhr){
+        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+      },
+      url: "/documents/exclude/",
+      data: { id: this.id, checked: checked }
+   });     
+  });
+
+
+
+  $('.etalpmet').change(function() {
+
+    alert( "Handler for .change() called." );
+    //var state = $('select#etalpmet :selected').val();
+    //if(state == "") state="0";
+
+  $.ajax({
+      type: "POST",
+      beforeSend: function(xhr){
+        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+      },
+      url: "/documents/etalpmet/",
+      data: { id: 6, checked: 7 }
+   });  
+
+  });
+
+
+  </script>
+
+
+
+
+
+<script type="text/javascript">
+function toggleAll(name)
+{
+  boxes = document.getElementsByClassName(name);
+  for (i = 0; i < boxes.length; i++)
+    if (!boxes[i].disabled)
+      { boxes[i].checked = !boxes[i].checked ; }
+}
+
+function setAll(name,state)
+{
+  boxes = document.getElementsByClassName(name);
+  for (i = 0; i < boxes.length; i++)
+    if (!boxes[i].disabled)
+      { boxes[i].checked = state ; }
+}
+</script>
+
+<% @pages.each do |p| %>
+
+<div class="medfile">
+
+  <a href='/pages/<%=p.id%>'>
+    
+    <% var = p.path.gsub("/original/img5/","/original/medium/")+"#{p.filename}" %>
+  	<% if File.exists?(var.gsub(".png","_mdx.png")) then %>
+		  <%= link_to( image_tag("#{p.url}".gsub("/original/img5/","/original/medium/")+"#{p.filename}".gsub(".png","_mdx.png"), :width => 277, :height=>369), "/pages/#{p.id}/edit")  %>
+    <% else %>
+      <%= link_to( image_tag("#{p.url}".gsub("/original/img5/","/original/medium/")+"#{p.filename}".gsub(".png","_md.png"), :width => 277, :height=>369), "/pages/#{p.id}/edit") %>
+  	<% end %>
+    <br />
+
+    <div class="clr"></div>
+
+	  <div class="rdu">	
+		  <div class="right"><%= check_box_tag p.id, p.exclude, p.exclude, :class => "inputcb" %> Exclude</div>
+		  <div class="right"></div>
+      <div class="right">
+        <%#= collection_select(:template_id, p.template_id, ::Template.all, :id, :name, :class => "etalpmet", :include_blank => true) %>
+
+      </div> 
+  		<div class="xleft"><p><%= p.number + 1 %></p></div>
+      <div class="clr"></div>
+	</div>
+  </a>
+</div>
+
+<% end %>
+
+
+<div class="clr"></div>

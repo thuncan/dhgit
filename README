@@ -1,0 +1,13 @@
+This is the early beta version of DocHive. 
+
+Aside from running the rails server
+% rails s
+
+Also run the delayed jobs
+% bundle exec rake jobs:work
+
+This version introduces the template builder.
+
+Updates will be coming soon to address documentation, smooth the interface, and address rough spots.
+
+Edward

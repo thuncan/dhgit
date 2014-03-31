@@ -1,0 +1,16 @@
+<div class="right"><h1>data</h1></div>
+<div class="clr"></div>
+<hr />
+
+<table>
+	<% @data.each do |datum| %>
+ 		<% @document = Document.find(datum.document_id) %>
+		<tr>
+			<td width="35%"><p><a href="<%= datum.url %><%= datum.filename %>"><%= datum.filename %></a></p></td>
+			<td width="35%"><p><%= @document.source_file_name %></p></td>
+			<td width="25%"><p><%= datum.updated_at %></p></td>
+			<td width="5%"><p><%= link_to 'remove', datum, method: :delete, data: { confirm: 'Are you sure?' } %></p></td>
+		</tr>
+	<% end %>
+</table>
+<%#= link_to 'New Datum', new_datum_path %>
